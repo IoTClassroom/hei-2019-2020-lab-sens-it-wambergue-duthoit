@@ -190,4 +190,4 @@ dir:
 
 # Rule for USB flashing using dfu file manager (vendor id 0483)
 prog:
-	dfu-util -a 0 -s 0x08000000:leave -D $(BIN_PATH)/$(BIN_OUTPUT)
+	C:\DEV\dfu-util-0.9-win64\dfu-util-0.9-win64\dfu-util.exe -a 0 -s 0x08000000:leave -D $(BIN_PATH)/$(BIN_OUTPUT)

@@ -1,3 +1,4 @@
-Sens'it ID : B43662
+Sens'it ID : B4362F
+Use-case : 4-Environment sensing
 Firstnames : Alexandre Léonard
 LastNames : Duthoit Wambergue

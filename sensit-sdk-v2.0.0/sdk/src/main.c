@@ -24,11 +24,20 @@ u8 firmware_version[] = "TEMPLATE";
 
 /*******************************************************************/
 
+typedef struct {
+    u8 EVENT_ID : 4;
+    u16 humidity;
+    s16 temperature;
+    u16 brightness;
+
+} data_s;
+
 int main()
 {
     error_t err;
     button_e btn;
     u16 battery_level;
+    u16 trash;
     bool send = FALSE;
 
     /* Start of initialization */
@@ -119,8 +128,17 @@ int main()
         if (send == TRUE)
         {
 
+            data_s data = {};
+            data.EVENT_ID = 0b1111;
+            HTS221_measure(&(data.temperature), &(data.humidity));
+
+            LTR329_set_active_mode(LTR329_GAIN_96X);
+            LTR329_measure(&(data.brightness), &trash);
+            LTR329_set_standby_mode();
+            
+
             /* Send the message */
-            err = RADIO_API_send_message(RGB_MAGENTA, (u8 *)"DUT-WAM", 7, FALSE, NULL);
+            err = RADIO_API_send_message(RGB_MAGENTA, (u8 *)&data, sizeof(data), FALSE, NULL);
             /* Parse the error code */
             ERROR_parser(err);
 
